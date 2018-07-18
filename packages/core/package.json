@@ -1,5 +1,5 @@
 {
-  "name": "@react-pdf/testkit-core",
+  "name": "@react-pdf/textkit-core",
   "version": "0.1.12",
   "description": "An advanced text layout framework",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   "author": "Devon Govett <devongovett@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "cubic2quad": "^1.1.0",
-    "@react-pdf/unicode-properties": "^2.1.0"
+    "@react-pdf/unicode-properties": "^2.1.0",
+    "cubic2quad": "^1.1.0"
   }
 }
