@@ -1,4 +1,4 @@
-import unicode from 'unicode-properties';
+import unicode from '@react-pdf/unicode-properties';
 
 // https://www.w3.org/TR/css-text-3/#hanging-punctuation
 const HANGING_PUNCTUATION_START_CATEGORIES = new Set(['Ps', 'Pi', 'Pf']);

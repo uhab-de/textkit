@@ -1,5 +1,5 @@
 {
-  "name": "@textkit/script-itemizer",
+  "name": "@react-pdf/script-itemizer",
   "version": "0.1.6",
   "description": "An advanced text layout framework",
   "main": "dist/index.js",
@@ -11,12 +11,15 @@
     "precommit": "lint-staged",
     "test": "jest"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
   "author": "Devon Govett <devongovett@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "unicode-properties": "^1.1.0"
+    "@react-pdf/unicode-properties": "^2.1.0"
   }
 }
