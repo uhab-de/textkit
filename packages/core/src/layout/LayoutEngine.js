@@ -54,9 +54,7 @@ export default class LayoutEngine {
   layoutColumn(attributedString, start, container, rect, isLastContainer) {
     while (start < attributedString.length && rect.height > 0) {
       let next = attributedString.string.indexOf('\n', start);
-      if (next === -1) {
-        next = attributedString.string.length;
-      }
+      if (next === -1) next = attributedString.string.length;
 
       const paragraph = attributedString.slice(start, next);
       const block = this.layoutParagraph(paragraph, container, rect, isLastContainer);
@@ -99,10 +97,10 @@ export default class LayoutEngine {
     const fragments = [];
 
     while (lineRect.y < rect.maxY && pos < glyphString.length && lines < maxLines) {
-      const lineString = glyphString.slice(pos, glyphString.length);
       const lineFragments = this.typesetter.layoutLineFragments(
+        pos,
         lineRect,
-        lineString,
+        glyphString,
         container,
         paragraphStyle
       );

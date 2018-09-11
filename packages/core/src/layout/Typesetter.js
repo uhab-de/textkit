@@ -24,23 +24,23 @@ export default class Typesetter {
     this.tabEngine = engines.tabEngine;
   }
 
-  layoutLineFragments(lineRect, glyphString, container, paragraphStyle) {
+  layoutLineFragments(start, lineRect, glyphString, container, paragraphStyle) {
+    const lineString = glyphString.slice(start, glyphString.length);
+
     // Guess the line height using the full line before intersecting with the container.
-    lineRect.height = glyphString.slice(0, glyphString.glyphIndexAtOffset(lineRect.width)).height;
+    lineRect.height = lineString.slice(0, lineString.glyphIndexAtOffset(lineRect.width)).height;
 
     // Generate line fragment rectangles by intersecting with the container.
     const fragmentRects = this.lineFragmentGenerator.generateFragments(lineRect, container);
 
-    if (fragmentRects.length === 0) {
-      return [];
-    }
+    if (fragmentRects.length === 0) return [];
 
     let pos = 0;
     const lineFragments = [];
     let lineHeight = paragraphStyle.lineHeight;
 
     for (const fragmentRect of fragmentRects) {
-      const line = glyphString.slice(pos, glyphString.length);
+      const line = lineString.slice(pos, lineString.length);
 
       if (this.tabEngine) {
         this.tabEngine.processLineFragment(line, container);
@@ -51,13 +51,16 @@ export default class Typesetter {
       if (bk) {
         bk.position += pos;
 
-        const lineFragment = new LineFragment(fragmentRect, glyphString.slice(pos, bk.position));
+        const lineFragment = new LineFragment(fragmentRect, lineString.slice(pos, bk.position));
+
+        lineFragment.stringStart = glyphString.stringIndexForGlyphIndex(lineFragment.start);
+        lineFragment.stringEnd = glyphString.stringIndexForGlyphIndex(lineFragment.end);
 
         lineFragments.push(lineFragment);
         lineHeight = Math.max(lineHeight, lineFragment.height);
 
         pos = bk.position;
-        if (pos >= glyphString.length) {
+        if (pos >= lineString.length) {
           break;
         }
       }
