@@ -1,6 +1,6 @@
 {
   "name": "@react-pdf/textkit-core",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "An advanced text layout framework",
   "main": "dist/index.js",
   "scripts": {
