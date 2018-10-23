@@ -64,16 +64,10 @@ export default class LayoutEngine {
 
       rect.y += paragraphHeight;
       rect.height -= paragraphHeight;
-      start += paragraph.length;
-
-      if (attributedString.string[start] === '\n') {
-        start++;
-      }
+      start += paragraph.length + 1;
 
       // If entire paragraph did not fit, move on to the next column or container.
-      if (start < next) {
-        break;
-      }
+      if (start < next) break;
     }
 
     return start;
@@ -123,6 +117,7 @@ export default class LayoutEngine {
     // Add empty line fragment for empty glyph strings
     if (glyphString.length === 0) {
       const newLineFragment = this.typesetter.layoutLineFragments(
+        pos,
         lineRect,
         glyphString,
         container,
