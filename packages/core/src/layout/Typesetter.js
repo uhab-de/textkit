@@ -24,7 +24,7 @@ export default class Typesetter {
     this.tabEngine = engines.tabEngine;
   }
 
-  layoutLineFragments(start, lineRect, glyphString, container, paragraphStyle) {
+  layoutLineFragments(start, lineRect, glyphString, container, paragraphStyle, stringOffset) {
     const lineString = glyphString.slice(start, glyphString.length);
 
     // Guess the line height using the full line before intersecting with the container.
@@ -53,8 +53,10 @@ export default class Typesetter {
 
         const lineFragment = new LineFragment(fragmentRect, lineString.slice(pos, bk.position));
 
-        lineFragment.stringStart = glyphString.stringIndexForGlyphIndex(lineFragment.start);
-        lineFragment.stringEnd = glyphString.stringIndexForGlyphIndex(lineFragment.end);
+        lineFragment.stringStart =
+          stringOffset + glyphString.stringIndexForGlyphIndex(lineFragment.start);
+        lineFragment.stringEnd =
+          stringOffset + glyphString.stringIndexForGlyphIndex(lineFragment.end);
 
         lineFragments.push(lineFragment);
         lineHeight = Math.max(lineHeight, lineFragment.height);
@@ -67,9 +69,7 @@ export default class Typesetter {
     }
 
     // Update the fragments on this line with the computed line height
-    if (lineHeight !== 0) {
-      lineRect.height = lineHeight;
-    }
+    if (lineHeight !== 0) lineRect.height = lineHeight;
 
     for (const fragment of lineFragments) {
       fragment.rect.height = lineHeight;

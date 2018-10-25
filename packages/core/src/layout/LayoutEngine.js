@@ -57,7 +57,7 @@ export default class LayoutEngine {
       if (next === -1) next = attributedString.string.length;
 
       const paragraph = attributedString.slice(start, next);
-      const block = this.layoutParagraph(paragraph, container, rect, isLastContainer);
+      const block = this.layoutParagraph(paragraph, container, rect, start, isLastContainer);
       const paragraphHeight = block.bbox.height + block.style.paragraphSpacing;
 
       container.blocks.push(block);
@@ -73,7 +73,7 @@ export default class LayoutEngine {
     return start;
   }
 
-  layoutParagraph(attributedString, container, rect, isLastContainer) {
+  layoutParagraph(attributedString, container, rect, stringOffset, isLastContainer) {
     const glyphString = this.glyphGenerator.generateGlyphs(attributedString);
     const paragraphStyle = new ParagraphStyle(attributedString.runs[0].attributes);
     const { marginLeft, marginRight, indent, maxLines, lineSpacing } = paragraphStyle;
@@ -96,7 +96,8 @@ export default class LayoutEngine {
         lineRect,
         glyphString,
         container,
-        paragraphStyle
+        paragraphStyle,
+        stringOffset
       );
 
       lineRect.y += lineRect.height + lineSpacing;
