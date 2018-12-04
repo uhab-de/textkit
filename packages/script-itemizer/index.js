@@ -22,7 +22,7 @@ export default () => ({ Run }) =>
 
         if (script !== lastScript && !ignoredScripts.includes(script)) {
           if (lastScript !== 'Unknown') {
-            runs.push(new Run(lastIndex, index - 1, { script: lastScript }));
+            runs.push(new Run(lastIndex, index, { script: lastScript }));
           }
 
           lastIndex = index;
