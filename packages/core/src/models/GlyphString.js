@@ -377,6 +377,10 @@ class GlyphString {
     this.glyphRunsCache = null;
   }
 
+  copy() {
+    return new GlyphString(this.string, this.glyphRuns.map(run => run.copy()));
+  }
+
   *[Symbol.iterator]() {
     let x = 0;
     for (const run of this.glyphRuns) {

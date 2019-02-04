@@ -20,7 +20,10 @@ const wrapWords = engines => attributedString => {
     fragments.push({ string, attributes: run.attributes });
   }
 
-  return { attributedString: AttributedString.fromFragments(fragments), syllables };
+  return {
+    attributedString: AttributedString.fromFragments(fragments),
+    syllables
+  };
 };
 
 export default wrapWords;
