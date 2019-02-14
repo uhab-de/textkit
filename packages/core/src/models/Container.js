@@ -4,6 +4,7 @@ export default class Container {
   constructor(path, options = {}) {
     this.path = path;
     this.blocks = [];
+    this.options = options;
     this.columns = options.columns || 1;
     this.tabStops = options.tabStops || [];
     this.columnGap = options.columnGap || 18; // 1/4 inch
@@ -30,5 +31,11 @@ export default class Container {
     }
 
     return excluded.toPolygon();
+  }
+
+  copy() {
+    const instance = new Container(this.path, this.options);
+    instance.blocks = this.blocks.map(b => b.copy());
+    return instance;
   }
 }

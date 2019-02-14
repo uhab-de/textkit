@@ -32,4 +32,11 @@ export default class Block {
 
     return length;
   }
+
+  copy() {
+    const lines = this.lines.map(line => line.copy());
+    const style = { ...this.style };
+
+    return new Block(lines, style);
+  }
 }
