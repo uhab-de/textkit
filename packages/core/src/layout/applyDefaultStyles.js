@@ -1,5 +1,7 @@
 import AttributedString from '../models/AttributedString';
 
+const isNil = value => value === undefined || value === null;
+
 const applyDefaultStyles = () => ({ string = '', runs = [] } = {}) => {
   const styledRuns = runs.map(({ start, end, attributes }) => ({
     start,
@@ -28,7 +30,7 @@ const applyDefaultStyles = () => ({ string = '', runs = [] } = {}) => {
       marginLeft: attributes.marginLeft || attributes.margin || 0,
       marginRight: attributes.marginRight || attributes.margin || 0,
       maxLines: attributes.maxLines || Infinity,
-      opacity: attributes.opacity || 1,
+      opacity: isNil(attributes.opacity) ? 1 : attributes.opacity,
       paddingTop: attributes.paddingTop || attributes.padding || 0,
       paragraphSpacing: attributes.paragraphSpacing || 0,
       truncationMode: attributes.truncationMode || (attributes.truncate ? 'right' : null),
