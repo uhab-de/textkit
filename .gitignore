@@ -5,7 +5,7 @@ dist
 *.pdf
 *.ttf
 lerna-debug.log
-test.js
+/example.js
 dist
 /attributedString
 /engines

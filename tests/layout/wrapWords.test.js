@@ -1,10 +1,10 @@
 import wrapWords from '../../src/layout/wrapWords';
 
-const emptyInstance = wrapWords();
+const emptyInstance = wrapWords({}, {});
 const wordHyphenationEngine = jest.fn(x => [x]);
-const defaultInstance = wrapWords({ wordHyphenation: wordHyphenationEngine });
+const defaultInstance = wrapWords({ wordHyphenation: () => wordHyphenationEngine }, {});
 const mutateWordHyphenationEngine = jest.fn(x => (x === ' ' ? [x] : [`${x}o`]));
-const mutateInstance = wrapWords({ wordHyphenation: mutateWordHyphenationEngine });
+const mutateInstance = wrapWords({ wordHyphenation: () => mutateWordHyphenationEngine }, {});
 
 describe('wrapWords', () => {
   describe('when engine provided', () => {

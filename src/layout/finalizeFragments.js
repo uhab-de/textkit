@@ -12,7 +12,12 @@ const ALIGNMENT_FACTORS = {
   justify: 0
 };
 
-// Remove new line char at the end of line
+/**
+ * Remove new line char at the end of line if present
+ *
+ * @param  {Object}  line
+ * @return {Object} line
+ */
 const removeNewLine = R.when(
   R.compose(
     R.equals('\n'),
@@ -25,7 +30,12 @@ const removeNewLine = R.when(
 const getOverflowLeft = R.converge(R.add, [R.propOr(0, 'overflowLeft'), leadingOffset]);
 const getOverflowRight = R.converge(R.add, [R.propOr(0, 'overflowRight'), trailingOffset]);
 
-// Ignore whitespace at the start and end of a line for alignment
+/**
+ * Ignore whitespace at the start and end of a line for alignment
+ *
+ * @param  {Object}  line
+ * @return {Object} line
+ */
 const adjustOverflow = line => {
   const overflowLeft = getOverflowLeft(line);
   const overflowRight = getOverflowRight(line);
@@ -42,6 +52,15 @@ const adjustOverflow = line => {
   )(line);
 };
 
+/**
+ * Performs line justification by calling appropiate engine
+ *
+ * @param  {Object}  engines
+ * @param  {Object}  layout options
+ * @param  {string}  text align
+ * @param  {Object}  line
+ * @return {Object} line
+ */
 const justifyLine = (engines, options, align) => line => {
   const lineAdvanceWidth = advanceWidth(line);
   const remainingWidth = Math.max(0, line.box.width - lineAdvanceWidth);
@@ -53,6 +72,17 @@ const justifyLine = (engines, options, align) => line => {
   )(line);
 };
 
+/**
+ * Finalize line by performing line justification
+ * and text decoration (using appropiate engines)
+ *
+ * @param  {Object}  engines
+ * @param  {Object}  layout options
+ * @param  {Object}  line
+ * @param  {number}  line index
+ * @param  {Array}  total lines
+ * @return {Object} line
+ */
 const finalizeBlock = (engines = {}, options) => (line, i, lines) => {
   const isLastFragment = i === lines.length - 1;
   const style = R.pathOr({}, ['runs', 0, 'attributes'], line);
@@ -66,6 +96,15 @@ const finalizeBlock = (engines = {}, options) => (line, i, lines) => {
   )(line);
 };
 
+/**
+ * Finalize line block by performing line justification
+ * and text decoration (using appropiate engines)
+ *
+ * @param  {Object}  engines
+ * @param  {Object}  layout options
+ * @param  {Array}  line blocks
+ * @return {Array} line blocks
+ */
 const finalizeFragments = (engines, options, blocks) =>
   R.map(R.addIndex(R.map)(finalizeBlock(engines, options)), blocks);
 

@@ -22,11 +22,11 @@ const resolveRunAttachments = run => {
     positions: mapIndexed((position, i) => {
       const glyph = glyphs[i];
 
-      if (isReplaceGlyph(glyph)) {
+      if (attachment && attachment.width && isReplaceGlyph(glyph)) {
         return R.evolve({ xAdvance: attachmentWidth }, position);
       }
 
-      return position;
+      return R.clone(position);
     })
   })(run);
 };

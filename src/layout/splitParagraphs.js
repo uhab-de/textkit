@@ -21,7 +21,9 @@ const splitParagraphs = () => attributedString => {
     breakPoint = attributedString.string.indexOf('\n', breakPoint) + 1;
   }
 
-  if (start < attributedString.string.length) {
+  if (start === 0) {
+    res.push(attributedString);
+  } else if (start < attributedString.string.length) {
     res.push(slice(start, length(attributedString), attributedString));
   }
 

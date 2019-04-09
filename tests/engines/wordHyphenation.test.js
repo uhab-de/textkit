@@ -16,24 +16,26 @@ hyphen.mockReturnValue(hyphenator);
 
 const wordHyphenation = require('../../src/engines/wordHyphenation').default;
 
+const instance = wordHyphenation({});
+
 describe('wordHyphenation', () => {
   beforeEach(() => {
     hyphenator.mockClear();
   });
 
-  test('should return empty array if no params', () => {
-    expect(wordHyphenation()).toEqual([]);
+  test('should return empty array if null param', () => {
+    expect(instance(null)).toEqual([]);
     expect(hyphenator.mock.calls).toHaveLength(0);
   });
 
   test('should return empty part for empty string', () => {
-    expect(wordHyphenation('')).toEqual(['']);
+    expect(instance('')).toEqual(['']);
     expect(hyphenator.mock.calls).toHaveLength(1);
   });
 
   test('should hyphenate word', () => {
     const word = 'something';
-    const parts = wordHyphenation(word);
+    const parts = instance(word);
 
     expect(parts).toHaveLength(2);
     expect(parts[0]).toEqual('some');
@@ -43,7 +45,7 @@ describe('wordHyphenation', () => {
 
   test('should hyphenate word in many parts', () => {
     const word = 'neumonia';
-    const parts = wordHyphenation(word);
+    const parts = instance(word);
 
     expect(parts).toHaveLength(3);
     expect(parts[0]).toEqual('neu');
@@ -54,7 +56,7 @@ describe('wordHyphenation', () => {
 
   test('should hyphenate word with soft hyphen', () => {
     const word = 'so\u00admething';
-    const parts = wordHyphenation(word);
+    const parts = instance(word);
 
     expect(parts).toHaveLength(2);
     expect(parts[0]).toEqual('so');
@@ -64,7 +66,7 @@ describe('wordHyphenation', () => {
 
   test('should hyphenate word with many soft hyphen', () => {
     const word = 'so\u00adme\u00adthing';
-    const parts = wordHyphenation(word);
+    const parts = instance(word);
 
     expect(parts).toHaveLength(3);
     expect(parts[0]).toEqual('so');
@@ -73,18 +75,18 @@ describe('wordHyphenation', () => {
     expect(hyphenator.mock.calls).toHaveLength(0);
   });
 
-  test('shouldget previosuly word from cache', () => {
+  test('should get previosuly word from cache', () => {
     const word = 'programming';
 
     // Hyphen not called yet
     expect(hyphenator.mock.calls).toHaveLength(0);
 
-    wordHyphenation(word);
+    instance(word);
 
     // Hyphen called once for word
     expect(hyphenator.mock.calls).toHaveLength(1);
 
-    const parts = wordHyphenation(word);
+    const parts = instance(word);
 
     expect(parts).toHaveLength(3);
     expect(parts[0]).toEqual('pro');

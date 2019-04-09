@@ -40,4 +40,19 @@ describe('indices resolve operator', () => {
     const result = resolve('lorffi', [0, 1, 2, 3]);
     expect(result).toEqual([0, 1, 2, 3, 3, 3]);
   });
+
+  test('should fill undefined index at start', () => {
+    const result = resolve('lorem', [undefined, 0, 1, 2, 3]);
+    expect(result).toEqual([0, 1, 2, 3, 4]);
+  });
+
+  test('should fill undefined index at middle', () => {
+    const result = resolve('lorem', [0, 1, undefined, 3, 4]);
+    expect(result).toEqual([0, 1, 2, 3, 4]);
+  });
+
+  test('should fill undefined index at end', () => {
+    const result = resolve('lorem', [0, 1, 2, 3, undefined]);
+    expect(result).toEqual([0, 1, 2, 3, 4]);
+  });
 });

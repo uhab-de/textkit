@@ -10,11 +10,11 @@ const cache = {};
 
 const getParts = R.ifElse(R.contains(SOFT_HYPHEN), splitHyphen, R.o(splitHyphen, hyphenator));
 
-const wordHyphenation = word => {
+const wordHyphenation = (options, word) => {
   if (R.isNil(word)) return [];
   if (cache[word]) return cache[word];
   cache[word] = getParts(word);
   return cache[word];
 };
 
-export default wordHyphenation;
+export default R.curryN(2, wordHyphenation);

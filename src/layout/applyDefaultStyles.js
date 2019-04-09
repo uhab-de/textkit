@@ -20,6 +20,7 @@ const applyRunStyles = R.evolve({
     fill: a.fill !== false,
     font: a.font || null,
     fontSize: a.fontSize || 12,
+    scale: a.font ? (a.fontSize || 12) / a.font.unitsPerEm : 0,
     hangingPunctuation: a.hangingPunctuation || false,
     hyphenationFactor: a.hyphenationFactor || 0,
     indent: a.indent || 0,

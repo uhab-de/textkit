@@ -1,5 +1,7 @@
 import * as R from 'ramda';
 
+import isNumber from '../utils/isNumber';
+
 /**
  * Generate glyphs indices from string indices
  *
@@ -14,7 +16,9 @@ const resolve = (string, stringIndices) => {
   const glyphIndices = [];
 
   for (let i = 0; i < stringIndices.length; i++) {
-    const stringIndex = stringIndices[i];
+    const current = stringIndices[i];
+    const prevValue = stringIndices[i - 1];
+    const stringIndex = isNumber(current) ? current : prevValue + 1 || 0;
     const nextValue = stringIndices[i + 1] || stringIndex + 1;
     const diff = nextValue - stringIndex;
 

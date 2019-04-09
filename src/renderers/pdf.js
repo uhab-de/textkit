@@ -10,15 +10,18 @@ const renderAttachments = (ctx, run) => {
   const space = font.glyphForCodePoint(0x20);
   const objectReplacement = font.glyphForCodePoint(0xfffc);
 
+  let attachmentAdvance = 0;
   for (let i = 0; i < run.glyphs.length; i++) {
     const position = run.positions[i];
     const glyph = run.glyphs[i];
 
-    ctx.translate(position.xAdvance, position.yOffset | 0);
+    attachmentAdvance += position.xAdvance || 0;
 
     if (glyph.id === objectReplacement.id && run.attributes.attachment) {
+      ctx.translate(attachmentAdvance, position.yOffset || 0);
       renderAttachment(ctx, run.attributes.attachment);
       run.glyphs[i] = space;
+      attachmentAdvance = 0;
     }
   }
 
@@ -77,7 +80,12 @@ const renderRun = (ctx, run, options) => {
     ctx.restore();
   } else {
     ctx.font(typeof font.name === 'string' ? font.name : font, fontSize);
-    ctx._addGlyphs(run.glyphs, run.positions, 0, 0);
+
+    try {
+      ctx._addGlyphs(run.glyphs, run.positions, 0, 0);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   ctx.translate(runAdvanceWidth, 0);

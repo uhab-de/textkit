@@ -61,7 +61,7 @@ const layoutLines = (rect, lines) => {
  * @return {Object} layout block
  */
 const layoutParagraph = (engines, options) => (rect, paragraph) => {
-  const lines = engines.lineBreaker(options)(paragraph, [rect.width]);
+  const lines = engines.linebreaker(options)(paragraph, [rect.width]);
   const lineFragments = layoutLines(rect, lines);
   return lineFragments;
 };

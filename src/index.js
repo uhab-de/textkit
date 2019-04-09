@@ -1,5 +1,5 @@
 import layoutEngine from './layout';
-import lineBreaker from './engines/linebreaker';
+import linebreaker from './engines/linebreaker';
 import justification from './engines/justification';
 import textDecoration from './engines/textDecoration';
 import scriptItemizer from './engines/scriptItemizer';
@@ -7,7 +7,7 @@ import wordHyphenation from './engines/wordHyphenation';
 import fontSubstitution from './engines/fontSubstitution';
 
 const engines = {
-  lineBreaker,
+  linebreaker,
   justification,
   textDecoration,
   scriptItemizer,

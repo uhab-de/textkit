@@ -3,12 +3,12 @@ import * as R from 'ramda';
 const unitsPerEm = ['font', 'unitsPerEm'];
 
 /**
- * Get run scale
+ * Calculate run scale
  *
  * @param  {Object}  run
  * @return {number} scale
  */
-const scale = R.compose(
+const calculateScale = R.compose(
   R.ifElse(
     R.compose(
       R.not,
@@ -20,5 +20,13 @@ const scale = R.compose(
   ),
   R.propOr({}, 'attributes')
 );
+
+/**
+ * Get run scale
+ *
+ * @param  {Object}  run
+ * @return {number} scale
+ */
+const scale = R.either(R.path(['attributes', 'scale']), calculateScale);
 
 export default scale;

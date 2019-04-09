@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import empty from '../../attributedString/empty';
 
 /**
@@ -8,7 +10,9 @@ import empty from '../../attributedString/empty';
  * @param  {Object}  attributed string
  * @return {Object} attributed string
  */
-const fontSubstitution = () => ({ string, runs }) => {
+const fontSubstitution = (options, attributedString) => {
+  const { string, runs } = attributedString;
+
   let lastFont = null;
   let lastIndex = 0;
   let index = 0;
@@ -47,4 +51,4 @@ const fontSubstitution = () => ({ string, runs }) => {
   return { string, runs: res };
 };
 
-export default fontSubstitution;
+export default R.curryN(2, fontSubstitution);
