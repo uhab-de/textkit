@@ -23,11 +23,9 @@ const DEFAULTS = {
   link: null,
   marginLeft: 0,
   marginRight: 0,
-  maxLines: Infinity,
   opacity: 1,
   paddingTop: 0,
   paragraphSpacing: 0,
-  truncationMode: null,
   underline: false,
   underlineColor: 'black',
   underlineStyle: 'solid',
@@ -60,11 +58,9 @@ const OVERRIDES = {
   link: 'link',
   marginLeft: 10,
   marginRight: 10,
-  maxLines: 50,
   opacity: 0.4,
   paddingTop: 5,
   paragraphSpacing: 5,
-  truncationMode: 'right',
   underline: true,
   underlineColor: 'red',
   underlineStyle: 'dashed',
@@ -153,15 +149,6 @@ describe('applyDefaultStyles', () => {
     });
 
     expect(result.runs[0].attributes).toHaveProperty('paddingTop', 5);
-  });
-
-  test('should truncationMode be right if truncate present', () => {
-    const result = applyDefaultStylesInstance({
-      string: 'Lorem',
-      runs: [{ start: 0, end: 5, attributes: { truncate: true } }]
-    });
-
-    expect(result.runs[0].attributes).toHaveProperty('truncationMode', 'right');
   });
 
   test('should opacity be zero', () => {
