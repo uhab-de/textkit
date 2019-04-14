@@ -4,7 +4,7 @@
   "description": "An advanced text layout framework",
   "main": "./index.js",
   "scripts": {
-    "prebuild": "rimraf attributedString layout engines glyph indices rect renderers run utils index.js",
+    "prebuild": "rimraf attributedString layout engines glyph indices rect renderers run utils block index.js",
     "prepublish": "npm run build",
     "build": "babel ./src --out-dir ./",
     "build:watch": "babel ./src --out-dir ./ --watch",
@@ -20,6 +20,7 @@
     "rect",
     "renderers",
     "run",
+    "block",
     "utils",
     "index.js"
   ],

@@ -16,4 +16,5 @@ dist
 /run
 /rect
 /utils
+/block
 /index.js

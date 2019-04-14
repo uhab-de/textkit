@@ -31,4 +31,4 @@ const prepend = (glyph, string) => {
   })(string);
 };
 
-export default prepend;
+export default R.curryN(2, prepend);
