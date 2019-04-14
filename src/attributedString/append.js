@@ -27,4 +27,4 @@ const append = (glyph, string) => {
   })(string);
 };
 
-export default append;
+export default R.curryN(2, append);
