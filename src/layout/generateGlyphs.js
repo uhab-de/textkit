@@ -42,12 +42,12 @@ const scalePositions = (run, positions) => {
  */
 const layoutRun = string => run => {
   const { start, end, attributes = {} } = run;
-  const { font, features, script } = attributes;
+  const { font } = attributes;
 
   if (!font) return { ...run, glyphs: [], glyphIndices: [], positions: [] };
 
   const runString = string.slice(start, end);
-  const glyphRun = font.layout(runString, features, script);
+  const glyphRun = font.layout(runString);
   const positions = scalePositions(run, glyphRun.positions);
   const glyphIndices = resolveGlyphIndices(runString, glyphRun.stringIndices);
 
