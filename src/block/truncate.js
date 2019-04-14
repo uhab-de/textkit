@@ -14,16 +14,17 @@ const truncate = block => {
   const runs = R.propOr([], 'runs', R.last(block));
   const font = R.path(['attributes', 'font'], R.last(runs));
 
-  return R.when(
-    R.always(font),
-    R.adjust(
+  if (font) {
+    return R.adjust(
       -1,
       R.compose(
         append(font.glyphForCodePoint(8230)),
         trim
       )
-    )
-  )(block);
+    )(block);
+  }
+
+  return block;
 };
 
 export default truncate;
