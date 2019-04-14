@@ -17,6 +17,30 @@ const blockHeight = R.compose(
 );
 
 /**
+ * Slice block at given height
+ *
+ * @param  {number}  height
+ * @param  {Object}  paragraph block
+ * @return {number} sliced paragraph block
+ */
+const sliceBlockAtHeight = (height, block) => {
+  const newBlock = [];
+
+  let counter = 0;
+  for (const line of block) {
+    counter += line.box.height;
+
+    if (counter < height) {
+      newBlock.push(line);
+    } else {
+      break;
+    }
+  }
+
+  return newBlock;
+};
+
+/**
  * Layout paragraphs inside container until it does not
  * fit anymore, performing line wrapping in the process.
  *
@@ -42,7 +66,7 @@ const typesetter = (engines, options, container, attributedStrings) => {
       paragraphRect = cropRect(linesHeight, paragraphRect);
       nextParagraph = paragraphs.shift();
     } else {
-      paragraphs.unshift(nextParagraph);
+      blocks.push(sliceBlockAtHeight(paragraphRect.height, block));
       break;
     }
   }
