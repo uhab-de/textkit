@@ -49,7 +49,7 @@ const layoutRun = string => run => {
   const runString = string.slice(start, end);
   const glyphRun = font.layout(runString);
   const positions = scalePositions(run, glyphRun.positions);
-  const glyphIndices = resolveGlyphIndices(runString, glyphRun.stringIndices);
+  const glyphIndices = resolveGlyphIndices(runString, glyphRun.stringIndices || []);
 
   return {
     ...run,

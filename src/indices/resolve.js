@@ -11,7 +11,7 @@ import isNumber from '../utils/isNumber';
  * @param  {Array}  string indices
  * @return {Array} glyph indices
  */
-const resolve = (string, stringIndices) => {
+const resolve = (string, stringIndices = []) => {
   let counter = 0;
   const glyphIndices = [];
 
