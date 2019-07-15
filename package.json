@@ -1,5 +1,5 @@
 {
-  "name": "@react-pdf/textkit",
+  "name": "@uhab/textkit",
   "version": "0.3.7",
   "description": "An advanced text layout framework",
   "main": "./index.js",
