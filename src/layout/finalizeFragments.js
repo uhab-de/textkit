@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 
 import advanceWidth from '../attributedString/advanceWidth';
-import leadingOffset from '../attributedString/leadingOffset';
 import trailingOffset from '../attributedString/trailingOffset';
 import dropLast from '../attributedString/dropLast';
 
@@ -27,7 +26,6 @@ const removeNewLine = R.when(
   dropLast
 );
 
-const getOverflowLeft = R.converge(R.add, [R.propOr(0, 'overflowLeft'), leadingOffset]);
 const getOverflowRight = R.converge(R.add, [R.propOr(0, 'overflowRight'), trailingOffset]);
 
 /**
@@ -37,7 +35,7 @@ const getOverflowRight = R.converge(R.add, [R.propOr(0, 'overflowRight'), traili
  * @return {Object} line
  */
 const adjustOverflow = line => {
-  const overflowLeft = getOverflowLeft(line);
+  const overflowLeft = 0;
   const overflowRight = getOverflowRight(line);
 
   return R.compose(
